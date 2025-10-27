@@ -70,6 +70,19 @@ Multitenant-AdminApp is a professional multi-tenant dashboard application built 
 - **Authentication:** Filament authentication & multi-tenancy
 
 ---
+## Screen Shots
+
+![Login Page](public/images/login.png)
+![Admin Dashboard](public/images/AdminDashboard2.png)
+![Admin Dashboard](public/images/AdminDashboard.png)
+![Countries](public/images/Countries.png)
+![Create User](public/images/CreateUser.png)
+![Create Employee](public/images/CreateEmployee.png)
+![Employees](public/images/Employees.png)
+
+
+
+---
 
 ## License
 This project is licensed under the **MIT License**.
