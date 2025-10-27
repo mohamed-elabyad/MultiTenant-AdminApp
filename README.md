@@ -1,61 +1,81 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Multitenant-AdminApp
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Multitenant-AdminApp is a professional multi-tenant dashboard application built with Laravel 12 and Filament v4. It features a comprehensive admin panel and a separate app panel, allowing centralized management of countries, states, cities, departments, employees, and users. The system supports multi-tenancy, where admins can create teams, assign users, and manage team-specific resources. Advanced dashboards provide insightful statistics and charts for employees, departments, and users. Each resource includes search functionality and relational management for efficient data handling.
+---
 
-## About Laravel
+## Features
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+### Admin Panel
+- Full CRUD for **Countries, States, Cities, Departments, Employees, Users**.
+- Relation Managers for hierarchical resources:
+  - City → State → Country  
+  - Department → Team  
+  - Employee → Country, State, City, Department, Team
+- Ability to **create new teams** and assign users to existing teams.
+- Assign `is_admin` role when creating users (true/false).
+- **Dynamic dependent selects**:
+  - Selecting a country filters available states.
+  - Selecting a state filters available cities.
+  - Auto-deletion of dependent records.
+- **Navigation groups**:
+  - System Management: Countries, States, Cities  
+  - Employee Management: Employees  
+  - User Management: Users
+- **Dashboard Widgets**:
+  - `StateAdminOverview` widget: employee & user statistics.
+  - Employees chart (line) & latest employees table.
+  - Users chart (line) & latest users table.
+- **Global search** available on almost all resources.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+### App Panel
+- Default panel for team users.
+- Team registration on first login.
+- CRUD for **Employees & Departments** within the team.
+- Team-specific dashboard widgets:
+  - `StateAppOverview`: employee, user & department stats for the team.
+  - Employees chart (line) & latest employees table.
+- User profile management: update name, email, and password.
+- Multi-tenant awareness:
+  - Each team sees only their own employees and departments.
+  - Admin sees all teams and resources.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+---
 
-## Learning Laravel
+## Relationships
+| Model        | Relationship                          |
+|--------------|---------------------------------------|
+| Country      | hasMany States                        |
+| State        | belongsTo Country, hasMany Cities     |
+| City         | belongsTo State                        |
+| Team         | hasMany Departments, belongsToMany Users |
+| Department   | belongsTo Team, hasMany Employees     |
+| Employee     | belongsTo Country, State, City, Department, Team |
+| User         | belongsToMany Teams                    |
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+---
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+## Additional Features
+- **Search** functionality in almost every resource.
+- **Relation managers** for nested data.
+- **Dynamic dependent select fields** for creating employees.
+- **Seeder data** includes Admin user, All countries, states, and cities of the whole world and it's zip-code and phonecode
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+---
 
-## Laravel Sponsors
+## Tech Stack
+- **Backend:** Laravel 12, PHP 8.2
+- **Frontend:** Vite, Tailwind CSS 4
+- **Admin Panel:** Filament v4
+- **Database:** MySQL
+- **Authentication:** Filament authentication & multi-tenancy
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
-
-### Premium Partners
-
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+---
 
 ## License
+This project is licensed under the **MIT License**.
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+---
+
+## Developed By
+**Mohamed Elabyad**  
+📧 Email: m.elabyad.work@gmail.com
